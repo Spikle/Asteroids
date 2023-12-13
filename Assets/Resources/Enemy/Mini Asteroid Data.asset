@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc52933bf4d7942088aa7b8d9e0696fc, type: 3}
+  m_Name: Mini Asteroid Data
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 593293319, guid: e8bf2ea74ed1648999508b413afe2cda, type: 3}
+  - {fileID: -217057627, guid: e8bf2ea74ed1648999508b413afe2cda, type: 3}
+  - {fileID: -1416534787, guid: e8bf2ea74ed1648999508b413afe2cda, type: 3}
+  size: 0.3
+  minSpeed: 1.25
+  maxSpeed: 1.75
+  maxRotation: 90
+  timeCooldawnSpawn: 0
+  scoreOnDead: 2

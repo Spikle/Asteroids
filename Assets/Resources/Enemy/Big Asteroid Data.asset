@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc52933bf4d7942088aa7b8d9e0696fc, type: 3}
+  m_Name: Big Asteroid Data
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 1497690134, guid: e8bf2ea74ed1648999508b413afe2cda, type: 3}
+  - {fileID: 105661577, guid: e8bf2ea74ed1648999508b413afe2cda, type: 3}
+  - {fileID: 2035913542, guid: e8bf2ea74ed1648999508b413afe2cda, type: 3}
+  size: 0.6
+  minSpeed: 0.25
+  maxSpeed: 0.75
+  maxRotation: 60
+  timeCooldawnSpawn: 3
+  scoreOnDead: 1
