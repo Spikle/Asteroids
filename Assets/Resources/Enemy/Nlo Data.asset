@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprites:
   - {fileID: 604771255, guid: e8bf2ea74ed1648999508b413afe2cda, type: 3}
-  size: 0.6
+  size: 1
   speed: 2
   timeCooldawnSpawn: 10
   scoreOnDead: 5

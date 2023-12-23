@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 492429710549131251}
   - component: {fileID: 3783760827790079784}
-  - component: {fileID: 6538816773639035157}
+  - component: {fileID: 7245033036271841582}
   m_Layer: 0
   m_Name: ShipView
   m_TagString: Untagged
@@ -78,14 +78,14 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.66, y: 0.51}
+  m_DrawMode: 1
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6538816773639035157
+--- !u!114 &7245033036271841582
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4958681121286844749}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 096019ebd84bb4cd9ad5e44a825099ba, type: 3}
+  m_Script: {fileID: 11500000, guid: a66f8f006acca411aa42a5266176cee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 3783760827790079784}

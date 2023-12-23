@@ -1,4 +1,4 @@
-using Asteroids.Core.Gameplay.Player.Weapon;
+using Asteroids.Core.Gameplay.Weapon;
 using UnityEngine;
 
 namespace Scripts.View
@@ -10,7 +10,7 @@ namespace Scripts.View
         [SerializeField] private float size;
         [SerializeField] private float speed;
 
-        public BulletMovement Movement => new BulletMovement(size, speed);
+        public DefoultWeaponConfig Config => new DefoultWeaponConfig(size, speed);
 
         public Sprite GetSprite()
         {

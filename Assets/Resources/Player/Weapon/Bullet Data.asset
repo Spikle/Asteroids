@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprites:
   - {fileID: 956606358, guid: e8bf2ea74ed1648999508b413afe2cda, type: 3}
-  size: 0.05
+  size: 0.35
   speed: 10

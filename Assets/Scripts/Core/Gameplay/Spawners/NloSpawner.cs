@@ -1,15 +1,16 @@
+using Asteroids.Core.ECS;
 using Asteroids.Core.Gameplay.Enemy;
 
 namespace Asteroids.Core.Spawners
 {
     public class NloSpawner : Spawner
     {
-        private NloMovement nloMovement;
+        private NloData nloMovement;
         private float timeCooldawn;
 
         public float NloSize => nloMovement.Size;
 
-        public NloSpawner(NloMovement nloMovement)
+        public NloSpawner(NloData nloMovement)
         {
             this.nloMovement = nloMovement;
         }
@@ -24,7 +25,7 @@ namespace Asteroids.Core.Spawners
             return timeCooldawn >= nloMovement.TimeCooldawnSpawn;
         }
 
-        public override Transform Spawn(Vector position, float rotation)
+        public override AbstractEntity Spawn(Vector position, float rotation)
         {
             Nlo nlo = new Nlo(position, rotation, nloMovement.Size, nloMovement.Speed, nloMovement.ScoreOnDead);
             timeCooldawn = 0;

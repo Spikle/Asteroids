@@ -11,6 +11,6 @@ namespace Scripts.View
         [SerializeField] private float rotationPerSecond;
         [SerializeField] private float maxSpeed;
 
-        public ShipMovement Movement => new ShipMovement(accelerationPerSecond, slowdownPerSecond, rotationPerSecond, maxSpeed);
+        public ShipConfig Config => new ShipConfig(accelerationPerSecond, slowdownPerSecond, rotationPerSecond, maxSpeed);
     }
 }

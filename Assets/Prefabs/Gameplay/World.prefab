@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3949310196388997875}
   - component: {fileID: 6877324738611502122}
+  - component: {fileID: 1486975133118686430}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -53,10 +54,22 @@ MonoBehaviour:
   nloData: {fileID: 11400000, guid: 710f0c1f3dd944aea803639c1b2b683f, type: 2}
   bulletData: {fileID: 11400000, guid: e7db47d710cab4c53831197bf690493a, type: 2}
   laserData: {fileID: 11400000, guid: 79dfb5162a7f1457c8a8f8bf84003dfd, type: 2}
-  shipViewPrefab: {fileID: 8464068014123194726}
+  shipViewPrefab: {fileID: 5423289550109815133}
   transformViewPrefab: {fileID: 3206501370312064729}
+  laserViewPrefab: {fileID: 1321783135664322114}
   startCountAsteroids: 5
-  lineRenderer: {fileID: 6839212603464097835}
+--- !u!114 &1486975133118686430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747008155249988366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4a4964ee017c463a8d1f28b153b8925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3443250634744250483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -119,15 +132,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 492429710549131251, guid: 7654ce99ebc014086a014e67b59c93a8, type: 3}
   m_PrefabInstance: {fileID: 3443250634744250483}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8464068014123194726 stripped
+--- !u!114 &5423289550109815133 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6538816773639035157, guid: 7654ce99ebc014086a014e67b59c93a8, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7245033036271841582, guid: 7654ce99ebc014086a014e67b59c93a8, type: 3}
   m_PrefabInstance: {fileID: 3443250634744250483}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 096019ebd84bb4cd9ad5e44a825099ba, type: 3}
+  m_Script: {fileID: 11500000, guid: a66f8f006acca411aa42a5266176cee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8070863764462863807
@@ -180,18 +193,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4781877459882400342, guid: d11908c49f7034b90a8f54c7a30b176a, type: 3}
       propertyPath: m_Name
-      value: Laser
+      value: LaserView
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d11908c49f7034b90a8f54c7a30b176a, type: 3}
---- !u!120 &6839212603464097835 stripped
-LineRenderer:
-  m_CorrespondingSourceObject: {fileID: 3380149937424278932, guid: d11908c49f7034b90a8f54c7a30b176a, type: 3}
+--- !u!114 &1321783135664322114 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7086023786364810237, guid: d11908c49f7034b90a8f54c7a30b176a, type: 3}
   m_PrefabInstance: {fileID: 8070863764462863807}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a7621872fb4e48438b0334b4f5a43f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7263127415484013006 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1498212351096314993, guid: d11908c49f7034b90a8f54c7a30b176a, type: 3}

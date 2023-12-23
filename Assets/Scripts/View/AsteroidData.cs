@@ -12,9 +12,10 @@ namespace Scripts.View
         [SerializeField] private float maxSpeed;
         [SerializeField] private float maxRotation;
         [SerializeField][Range(0.1f, 25f)] private float timeCooldawnSpawn;
+        [SerializeField] private int countMiniAsteroids;
         [SerializeField] private int scoreOnDead;
 
-        public AsteroidMovement Movement => new AsteroidMovement(size, minSpeed, maxSpeed, maxRotation, timeCooldawnSpawn, scoreOnDead);
+        public Asteroids.Core.Gameplay.Enemy.AsteroidData Movement => new Asteroids.Core.Gameplay.Enemy.AsteroidData(size, minSpeed, maxSpeed, maxRotation, timeCooldawnSpawn, countMiniAsteroids, scoreOnDead);
 
         public Sprite GetSprite()
         {

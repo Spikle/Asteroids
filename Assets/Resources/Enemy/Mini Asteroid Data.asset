@@ -16,9 +16,10 @@ MonoBehaviour:
   - {fileID: 593293319, guid: e8bf2ea74ed1648999508b413afe2cda, type: 3}
   - {fileID: -217057627, guid: e8bf2ea74ed1648999508b413afe2cda, type: 3}
   - {fileID: -1416534787, guid: e8bf2ea74ed1648999508b413afe2cda, type: 3}
-  size: 0.3
+  size: 0.6
   minSpeed: 1.25
   maxSpeed: 1.75
   maxRotation: 90
   timeCooldawnSpawn: 0
+  countMiniAsteroids: 0
   scoreOnDead: 2

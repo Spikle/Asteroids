@@ -1,26 +1,30 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using Asteroids.Core;
+using Asteroids.Core.ECS;
 using Asteroids.Core.Gameplay;
 using Asteroids.Core.Gameplay.Enemy;
 using Asteroids.Core.Gameplay.Player;
-using Asteroids.Core.Gameplay.Player.Weapon;
+using Asteroids.Core.Gameplay.Weapon;
 using UnityEngine;
 
 namespace Scripts.View
 {
     public class WorldView : MonoBehaviour, IGameHandler
     {
+        public event Action<World> OnCreateWorld;
+        public event Action<World> OnDestroyWorld;
+
         [SerializeField] private ShipData shipData;
         [SerializeField] private AsteroidData bigAsteroidData;
         [SerializeField] private AsteroidData miniAsteroidData;
         [SerializeField] private NloData nloData;
         [SerializeField] private BulletData bulletData;
         [SerializeField] private LaserData laserData;
-        [SerializeField] private ShipView shipViewPrefab;
+        [SerializeField] private TransformView shipViewPrefab;
         [SerializeField] private TransformView transformViewPrefab;
+        [SerializeField] private LaserView laserViewPrefab;
         [SerializeField] private int startCountAsteroids;
-        [SerializeField] private LineRenderer lineRenderer;
 
         private World world;
         private bool isActive;
@@ -30,7 +34,7 @@ namespace Scripts.View
         {
             transformViewPrefab.gameObject.SetActive(false);
             shipViewPrefab.gameObject.SetActive(false);
-            lineRenderer.gameObject.SetActive(false);
+            laserViewPrefab.gameObject.SetActive(false);
             EventBusSystem.EventBus.Subscribe(this);
         }
 
@@ -43,32 +47,21 @@ namespace Scripts.View
             float width = height * cam.aspect;
 
             WorldRect worldRect = new WorldRect(width, height, new Vector(cam.transform.position.x, cam.transform.position.y));
-            world = new World(worldRect, shipData.Movement, bigAsteroidData.Movement, miniAsteroidData.Movement, nloData.Movement, bulletData.Movement, laserData.Config);
-            world.TickSystem.OnSpawnObject += OnSpawnObject;
-            world.TickSystem.OnDestoryObject += OnDestoryObject;
-            world.OnDrawLine += DrawLine;
-            world.OnScoreChanged += ScoreChanged;
+            world = new World(worldRect, shipData.Config, bigAsteroidData.Movement, miniAsteroidData.Movement, nloData.Movement, bulletData.Config, laserData.Config);
+            world.OnSpawnEntity += SpawnEntity;
+            world.OnDestroyEntity += DestroyEntity;
             world.OnEndGame += EndGame;
+            OnCreateWorld?.Invoke(world);
         }
 
         public void StartGame()
         {
             isActive = true;
-            EventBusSystem.EventBus.RaiseEvent<IStartUIHandler>(h => h.HideStart());
-            EventBusSystem.EventBus.RaiseEvent<IEndUIHandler>(h => h.HideEnd());
-            EventBusSystem.EventBus.RaiseEvent<IGameplayUIHandler>(h => h.ShowGameplay());
             world.StartGame(Vector.Zero, startCountAsteroids);
-        }
-
-        private void ScoreChanged(int value)
-        {
-            EventBusSystem.EventBus.RaiseEvent<IScoreUIHandler>(h=> h.UpdateScore(value));
         }
 
         private void EndGame(Score score)
         {
-            EventBusSystem.EventBus.RaiseEvent<IGameplayUIHandler>(h => h.HideGameplay());
-            EventBusSystem.EventBus.RaiseEvent<IEndUIHandler>(h => h.ShowEnd(score.Value));
             isActive = false;
         }
 
@@ -80,43 +73,41 @@ namespace Scripts.View
             world.Tick(Time.deltaTime);
         }
 
-        private void OnSpawnObject(ITickable tickable)
+        private void SpawnEntity(AbstractEntity entity)
         {
-            if (tickable is Ship ship)
+            if (entity is Ship ship)
             {
-                ShipView view = SpawnShipView();
-                view.SetTransform(ship);
-                view.SetActive(true);
+                TransformView view = SpawnShipView();
+                view.SetEntity(ship);
             }
-            else if (tickable is Asteroid asteroid)
+            else if (entity is Asteroid asteroid)
             {
                 TransformView view = SpawnTransformView();
-                view.SetTransform(asteroid);
+                view.SetEntity(asteroid);
                 view.SetSprite(bigAsteroidData.GetSprite());
             }
-            else if (tickable is MiniAsteroid miniAsteroid)
+            else if (entity is Nlo nlo)
             {
                 TransformView view = SpawnTransformView();
-                view.SetTransform(miniAsteroid);
-                view.SetSprite(miniAsteroidData.GetSprite());
-            }
-            else if (tickable is Nlo nlo)
-            {
-                TransformView view = SpawnTransformView();
-                view.SetTransform(nlo);
+                view.SetEntity(nlo);
                 view.SetSprite(nloData.GetSprite());
             }
-            else if(tickable is Bullet bullet)
+            else if(entity is Bullet bullet)
             {
                 TransformView view = SpawnTransformView();
-                view.SetTransform(bullet);
+                view.SetEntity(bullet);
                 view.SetSprite(bulletData.GetSprite());
+            }
+            else if(entity is Laser laser)
+            {
+                LaserView view = SpawnLaserView();
+                view.SetEntity(laser);
             }
         }
 
-        private ShipView SpawnShipView()
+        private TransformView SpawnShipView()
         {
-            ShipView view = Instantiate(shipViewPrefab, Vector3.zero, Quaternion.identity, transform);
+            TransformView view = Instantiate(shipViewPrefab, Vector3.zero, Quaternion.identity, transform);
             transforms.Add(view);
             view.gameObject.SetActive(true);
 
@@ -132,11 +123,20 @@ namespace Scripts.View
             return view;
         }
 
-        private void OnDestoryObject(ITickable tickable)
+        private LaserView SpawnLaserView()
+        {
+            LaserView view = Instantiate(laserViewPrefab, Vector3.zero, Quaternion.identity, transform);
+            transforms.Add(view);
+            view.gameObject.SetActive(true);
+
+            return view;
+        }
+
+        private void DestroyEntity(AbstractEntity entity)
         {
             for(int i = 0; i < transforms.Count; i++)
             {
-                if (transforms[i].TransformObject == tickable)
+                if (transforms[i].Entity == entity)
                 {
                     TransformView view = transforms[i];
                     transforms.RemoveAt(i);
@@ -146,20 +146,11 @@ namespace Scripts.View
             }
         }
 
-        private void DrawLine(Vector start, Vector direction)
-        {
-            Vector3[] points = new Vector3[2];
-            points[0] = new Vector3(start.x, start.y, 0);
-            points[1] = new Vector3(start.x + direction.x, start.y + direction.y, 0);
-            lineRenderer.SetPositions(points);
-            lineRenderer.gameObject.SetActive(points[1].sqrMagnitude > 0);
-        }
-
         private void OnDestroy()
         {
-            world.TickSystem.OnSpawnObject -= OnSpawnObject;
-            world.TickSystem.OnDestoryObject -= OnDestoryObject;
-            world.OnDrawLine -= DrawLine;
+            world.OnSpawnEntity -= SpawnEntity;
+            world.OnDestroyEntity -= DestroyEntity;
+            OnDestroyWorld?.Invoke(world);
             EventBusSystem.EventBus.Unsubscribe(this);
         }
     }

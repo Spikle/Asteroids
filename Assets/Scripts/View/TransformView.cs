@@ -1,15 +1,17 @@
+using Asteroids.Core.ECS;
 using UnityEngine;
 using Transform = Asteroids.Core.Transform;
 
 namespace Scripts.View
 {
-    [RequireComponent(typeof(SpriteRenderer))]
     public class TransformView : MonoBehaviour
     {
         [SerializeField] protected SpriteRenderer spriteRenderer;
+
+        protected AbstractEntity entity;
         protected Transform transformObject;
 
-        public Transform TransformObject => transformObject;
+        public AbstractEntity Entity => entity;
 
         protected virtual void Awake()
         {
@@ -17,9 +19,13 @@ namespace Scripts.View
                 spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        public virtual void SetTransform(Transform transformObject)
+        public virtual void SetEntity(AbstractEntity entity)
         {
-            this.transformObject = transformObject;
+            this.entity = entity;
+            transformObject = entity.GetComponent<Transform>();
+
+            if (transformObject != null)
+                spriteRenderer.size = new Vector2(transformObject.Size, transformObject.Size);
         }
 
         public void SetSprite(Sprite sprite)

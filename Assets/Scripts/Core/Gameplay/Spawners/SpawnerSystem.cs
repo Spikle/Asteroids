@@ -1,4 +1,5 @@
 using System;
+using Asteroids.Core.ECS;
 
 namespace Asteroids.Core.Spawners
 {
@@ -45,7 +46,7 @@ namespace Asteroids.Core.Spawners
             return null;
         }
 
-        public U Spawn<T, U>(Vector position, float rotation) where T : Spawner where U : Transform
+        public U Spawn<T, U>(Vector position, float rotation) where T : Spawner where U : AbstractEntity
         {
             for(int i = 0; i < spawners.Length; i++)
             {

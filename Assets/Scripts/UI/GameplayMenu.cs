@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-using Asteroids.Core.Gameplay.Player.Weapon;
+using Asteroids.Core.Gameplay.Weapon;
 
 namespace Scripts.UI
 {
@@ -69,7 +69,7 @@ namespace Scripts.UI
             velocityText.text = velocity.ToString("0.0000");
         }
 
-        public void UpdateLaser(WeaponInfo weaponInfo)
+        public void UpdateLaser(LaserInfo weaponInfo)
         {
             laserText.text = weaponInfo.GetInfo();
         }

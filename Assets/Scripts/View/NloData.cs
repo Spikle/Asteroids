@@ -12,7 +12,7 @@ namespace Scripts.View
         [SerializeField][Range(0.1f, 25f)] private float timeCooldawnSpawn;
         [SerializeField] private int scoreOnDead;
 
-        public NloMovement Movement => new NloMovement(size, speed, timeCooldawnSpawn, scoreOnDead);
+        public Asteroids.Core.Gameplay.Enemy.NloData Movement => new Asteroids.Core.Gameplay.Enemy.NloData(size, speed, timeCooldawnSpawn, scoreOnDead);
 
         public Sprite GetSprite()
         {

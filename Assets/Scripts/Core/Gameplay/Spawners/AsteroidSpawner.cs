@@ -1,20 +1,19 @@
 using System;
+using Asteroids.Core.ECS;
 using Asteroids.Core.Gameplay.Enemy;
 
 namespace Asteroids.Core.Spawners
 {
     public class AsteroidSpawner : Spawner
     {
-        private AsteroidMovement asteroidMovement;
-        private Func<Vector, float, Vector> calculatePointInWorld;
+        private AsteroidData bigAsteroidData;
+        private AsteroidData miniAsteroidData;
         private float timeCooldawn;
 
-        public float AsteroidSize => asteroidMovement.Size;
-
-        public AsteroidSpawner(AsteroidMovement asteroidMovement, Func<Vector, float, Vector> calculatePointInWorld)
+        public AsteroidSpawner(AsteroidData bigAsteroidData, AsteroidData miniAsteroidData)
         {
-            this.asteroidMovement = asteroidMovement;
-            this.calculatePointInWorld = calculatePointInWorld;
+            this.bigAsteroidData = bigAsteroidData;
+            this.miniAsteroidData = miniAsteroidData;
         }
 
         public override void Tick(float deltaTime)
@@ -24,20 +23,21 @@ namespace Asteroids.Core.Spawners
 
         public override bool CanSpawn()
         {
-            return timeCooldawn >= asteroidMovement.TimeCooldawnSpawn;
+            return timeCooldawn >= bigAsteroidData.TimeCooldawnSpawn;
         }
 
-        public override Transform Spawn(Vector position, float rotation)
+        public override AbstractEntity Spawn(Vector position, float rotation)
         {
             Random rnd = new Random();
             Vector direction;
             direction.x = (float)rnd.NextDouble() - 0.5f;
             direction.y = (float)rnd.NextDouble() - 0.5f;
             direction = direction.normalize;
-            float speed = (float)rnd.NextDouble() * (asteroidMovement.MaxSpeed - asteroidMovement.MinSpeed) + asteroidMovement.MinSpeed;
-            float rotationSpeed = ((float)rnd.NextDouble() - 0.5f) * asteroidMovement.MaxRotation;
+            float speed = (float)rnd.NextDouble() * (bigAsteroidData.MaxSpeed - bigAsteroidData.MinSpeed) + bigAsteroidData.MinSpeed;
+            float rotationSpeed = ((float)rnd.NextDouble() - 0.5f) * bigAsteroidData.MaxRotation;
 
-            Asteroid asteroid = new Asteroid(position, rotation, asteroidMovement.Size, direction, speed, rotationSpeed, asteroidMovement.ScoreOnDead, calculatePointInWorld);
+            Asteroid asteroid = new Asteroid(position, rotation, bigAsteroidData.Size, direction, speed, rotationSpeed, bigAsteroidData.ScoreOnDead);
+            asteroid.AddComponent<AsteroidDestroy>(new AsteroidDestroy(miniAsteroidData, bigAsteroidData.CountMiniAsteroids));
             timeCooldawn = 0;
             return asteroid;
         }

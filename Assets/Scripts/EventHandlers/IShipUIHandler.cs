@@ -1,4 +1,4 @@
-using Asteroids.Core.Gameplay.Player.Weapon;
+using Asteroids.Core.Gameplay.Weapon;
 using EventBusSystem;
 using UnityEngine;
 
@@ -10,7 +10,7 @@ namespace Scripts
         public void UpdateAngle(float angle);
         public void UpdateVelocity(float velocity);
         public void UpdateShip(Vector2 position, float angle, float velocity);
-        public void UpdateLaser(WeaponInfo weaponInfo);
+        public void UpdateLaser(LaserInfo weaponInfo);
     }
 }
 

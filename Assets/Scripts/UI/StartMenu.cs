@@ -1,3 +1,4 @@
+using Asteroids.Core.Gameplay.Player;
 using UnityEngine.InputSystem;
 
 namespace Scripts.UI

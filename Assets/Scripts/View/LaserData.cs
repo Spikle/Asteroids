@@ -1,4 +1,4 @@
-using Asteroids.Core.Gameplay.Player.Weapon;
+using Asteroids.Core.Gameplay.Weapon;
 using UnityEngine;
 
 namespace Scripts.View
@@ -11,6 +11,6 @@ namespace Scripts.View
         [SerializeField] private float cooldawnTime;
         [SerializeField] private float laserLength;
 
-        public LaserConfig Config => new LaserConfig(maxBullets, shootTime, cooldawnTime, laserLength);
+        public LaserWeaponConfig Config => new LaserWeaponConfig(maxBullets, shootTime, cooldawnTime, laserLength);
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using Asteroids.Core.Gameplay.Player;
 
 namespace Scripts.UI
 {
