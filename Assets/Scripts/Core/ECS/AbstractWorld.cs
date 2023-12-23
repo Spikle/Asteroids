@@ -73,17 +73,17 @@ namespace Asteroids.Core.ECS
             }
         }
 
-        public virtual void SpawnEntity(AbstractEntity entity)
+        protected virtual void SpawnEntity(AbstractEntity entity)
         {
             OnSpawnEntity?.Invoke(entity);
         }
 
-        public virtual void DestroyEntity(AbstractEntity entity)
+        protected virtual void DestroyEntity(AbstractEntity entity)
         {
             OnDestroyEntity?.Invoke(entity);
         }
 
-        public AllEntities GetAllEntities()
+        protected AllEntities GetAllEntities()
         {
             return new AllEntities(entities);
         }

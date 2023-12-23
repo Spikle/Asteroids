@@ -38,7 +38,8 @@ namespace Asteroids.Core.ECS
 
         public void AddComponent<T>(T component)
         {
-            components.Add(component);
+            if(!components.Contains(component))
+                components.Add(component);
         }
 
         public void RemoveComponent<T>()

@@ -127,7 +127,7 @@ namespace Asteroids.Core.Gameplay
             AddEntity(nlo);
         }
 
-        public override void DestroyEntity(AbstractEntity entity)
+        protected override void DestroyEntity(AbstractEntity entity)
         {
             base.DestroyEntity(entity);
             if(isActive && entity is Ship)
